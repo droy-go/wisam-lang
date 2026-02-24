@@ -431,11 +431,7 @@ copies or substantial portions of the Software.
 
 📧 **البريد الإلكتروني:** [droy.ree@gmail.com](mailto:droy.ree@gmail.com)
 
-🌐 **الموقع:** [wisam-lang.org](https://wisam-lang.org) *(قريباً)*
 
-🐦 **تويتر:** [@WisamLang](https://twitter.com/WisamLang)
-
-💬 **ديسكورد:** [انضم لمجتمعنا](https://discord.gg/wisam)
 
 </div>
 

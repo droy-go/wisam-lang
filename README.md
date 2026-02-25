@@ -4,9 +4,9 @@
 
 **لغة برمجة عربية متكاملة - Arabic Programming Language**
 
-[![Version](https://img.shields.io/badge/الإصدار-2.0-blue.svg)](https://github.com/wisam-lang/wisam)
+[![Version](https://img.shields.io/badge/الإصدار-1.0-blue.svg)](https://github.com/wisam-lang/wisam)
 [![License](https://img.shields.io/badge/الترخيص-MIT-green.svg)](LICENSE)
-[![Language](https://img.shields.io/badge/اللغة-العربية-orange.svg)](#)
+[![Language](https://img.shields.io/badge/wisam-lang-orange.svg)](#)
 
 <p align="center">
   <img src="logo.jpg" alt="Wisam Logo" width="200"/>

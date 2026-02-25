@@ -1,88 +1,142 @@
 # Makefile for Wisam Programming Language
 
 CC = gcc
-CFLAGS = -Wall -Wextra -g -O2 -I./include
-LDFLAGS = -lm -lcurl -lssl -lcrypto
+CFLAGS = -Wall -Wextra -O2 -std=c99 -I./include
+LDFLAGS = -lm
+DEBUG_FLAGS = -g -DDEBUG
+
+# Directories
+SRC_DIR = src
+INC_DIR = include
+OBJ_DIR = obj
+BIN_DIR = bin
+EXAMPLES_DIR = examples
+TESTS_DIR = tests
 
 # Source files
-SRCS = src/main.c \
-       src/lexer.c \
-       src/parser.c \
-       src/interpreter.c \
-       src/lib_text.c \
-       src/lib_time.c \
-       src/lib_store.c \
-       src/lib_ai.c \
-       src/lib_media.c \
-       src/lib_gui.c \
-       src/lib_net.c \
-       src/lib_meta.c \
-       src/lib_math.c \
-       src/lib_list.c \
-       src/lib_file.c \
-       src/lib_json.c \
-       src/lib_crypto.c \
-       src/lib_regex.c \
-       src/lib_system.c
-
-# Object files
-OBJS = $(SRCS:.c=.o)
+SOURCES = $(wildcard $(SRC_DIR)/*.c)
+OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
 
 # Target executable
-TARGET = wisam
+TARGET = $(BIN_DIR)/wisam
+
+# Library files
+LIB_SOURCES = $(filter-out $(SRC_DIR)/main.c, $(SOURCES))
+LIB_OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(LIB_SOURCES))
+
+# Colors for output
+RED = \033[0;31m
+GREEN = \033[0;32m
+YELLOW = \033[0;33m
+BLUE = \033[0;34m
+NC = \033[0m # No Color
+
+.PHONY: all clean install uninstall test debug docs
 
 # Default target
-all: $(TARGET)
+all: directories $(TARGET)
+	@echo "$(GREEN)✓ تم بناء لغة وسام بنجاح!$(NC)"
 
-# Build the executable
-$(TARGET): $(OBJS)
-	$(CC) $(OBJS) -o $(TARGET) $(LDFLAGS)
-	@echo "✓ تم بناء وسام بنجاح!"
+# Create necessary directories
+directories:
+	@mkdir -p $(OBJ_DIR) $(BIN_DIR)
+	@echo "$(BLUE)📁 تم إنشاء المجلدات$(NC)"
 
-# Compile source files
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# Build the main executable
+$(TARGET): $(OBJECTS)
+	@$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	@echo "$(GREEN)⚙️ تم بناء المفسر$(NC)"
+
+# Compile source files to object files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$(BLUE)🔨 $(notdir $<)$(NC)"
+
+# Debug build
+debug: CFLAGS += $(DEBUG_FLAGS)
+debug: clean all
+	@echo "$(YELLOW)🐛 وضع التصحيح مفعل$(NC)"
+
+# Run tests
+test: all
+	@echo "$(BLUE)🧪 جاري تشغيل الاختبارات...$(NC)"
+	@for test in $(TESTS_DIR)/*.wsm; do \
+		if [ -f "$$test" ]; then \
+			echo "$(YELLOW)تشغيل: $$test$(NC)"; \
+			$(TARGET) "$$test"; \
+		fi; \
+	done
+	@echo "$(GREEN)✓ تم الانتهاء من الاختبارات$(NC)"
+
+# Run examples
+examples: all
+	@echo "$(BLUE)📚 جاري تشغيل الأمثلة...$(NC)"
+	@for example in $(EXAMPLES_DIR)/*.wsm; do \
+		if [ -f "$$example" ]; then \
+			echo "$(YELLOW)تشغيل: $$example$(NC)"; \
+			$(TARGET) "$$example"; \
+			echo ""; \
+		fi; \
+	done
+	@echo "$(GREEN)✓ تم الانتهاء من الأمثلة$(NC)"
+
+# Install to system
+install: all
+	@echo "$(BLUE)📥 جاري التثبيت...$(NC)"
+	@cp $(TARGET) /usr/local/bin/
+	@mkdir -p /usr/local/share/wisam
+	@cp -r $(EXAMPLES_DIR) /usr/local/share/wisam/
+	@cp -r $(INC_DIR) /usr/local/share/wisam/
+	@echo "$(GREEN)✓ تم التثبيت بنجاح!$(NC)"
+	@echo "$(GREEN)يمكنك الآن استخدام 'wisam' من أي مكان$(NC)"
+
+# Uninstall from system
+uninstall:
+	@echo "$(BLUE)🗑️ جاري إلغاء التثبيت...$(NC)"
+	@rm -f /usr/local/bin/wisam
+	@rm -rf /usr/local/share/wisam
+	@echo "$(GREEN)✓ تم إلغاء التثبيت$(NC)"
 
 # Clean build files
 clean:
-	rm -f $(OBJS) $(TARGET)
-	@echo "✓ تم تنظيف الملفات"
+	@echo "$(YELLOW)🧹 جاري التنظيف...$(NC)"
+	@rm -rf $(OBJ_DIR) $(BIN_DIR)
+	@echo "$(GREEN)✓ تم التنظيف$(NC)"
 
-# Install (requires sudo)
-install: $(TARGET)
-	cp $(TARGET) /usr/local/bin/
-	mkdir -p /usr/local/share/wisam
-	cp -r include /usr/local/share/wisam/
-	@echo "✓ تم تثبيت وسام"
-
-# Uninstall (requires sudo)
-uninstall:
-	rm -f /usr/local/bin/$(TARGET)
-	rm -rf /usr/local/share/wisam
-	@echo "✓ تم إلغاء تثبيت وسام"
-
-# Run tests
-test: $(TARGET)
-	./$(TARGET) examples/test.wsm
-
-# Interactive mode
-interactive: $(TARGET)
-	./$(TARGET) -i
-
-# Create release build
-release: CFLAGS = -Wall -O3 -I./include -DNDEBUG
-release: clean $(TARGET)
-	strip $(TARGET)
-	@echo "✓ تم إنشاء الإصدار النهائي"
+# Generate documentation
+docs:
+	@echo "$(BLUE)📖 جاري إنشاء التوثيق...$(NC)"
+	@echo "# توثيق لغة وسام" > $(DOCS_DIR)/API.md
+	@echo "" >> $(DOCS_DIR)/API.md
+	@echo "## المكتبات المتاحة" >> $(DOCS_DIR)/API.md
+	@echo "" >> $(DOCS_DIR)/API.md
+	@echo "### مكتبة النصوص" >> $(DOCS_DIR)/API.md
+	@echo "- حوّل_إلى_كبير(نص)" >> $(DOCS_DIR)/API.md
+	@echo "- حوّل_إلى_صغير(نص)" >> $(DOCS_DIR)/API.md
+	@echo "- الطول(نص)" >> $(DOCS_DIR)/API.md
+	@echo "" >> $(DOCS_DIR)/API.md
+	@echo "$(GREEN)✓ تم إنشاء التوثيق$(NC)"
 
 # Show help
 help:
-	@echo "أوامر Makefile:"
-	@echo "  make          بناء وسام"
-	@echo "  make clean    تنظيف الملفات"
-	@echo "  make install  تثبيت وسام (يتطلب sudo)"
-	@echo "  make test     تشغيل الاختبارات"
-	@echo "  make release  إنشاء إصدار نهائي"
-	@echo "  make help     عرض هذه المساعدة"
+	@echo "$(BLUE)لغة وسام - نظام البناء$(NC)"
+	@echo ""
+	@echo "الأوامر المتاحة:"
+	@echo "  $(GREEN)make$(NC)           بناء اللغة"
+	@echo "  $(GREEN)make debug$(NC)     بناء مع خاصية التصحيح"
+	@echo "  $(GREEN)make test$(NC)      تشغيل الاختبارات"
+	@echo "  $(GREEN)make examples$(NC)  تشغيل الأمثلة"
+	@echo "  $(GREEN)make install$(NC)   تثبيت على النظام"
+	@echo "  $(GREEN)make uninstall$(NC) إلغاء التثبيت"
+	@echo "  $(GREEN)make clean$(NC)     تنظيف الملفات المؤقتة"
+	@echo "  $(GREEN)make docs$(NC)      إنشاء التوثيق"
+	@echo "  $(GREEN)make help$(NC)      عرض هذه المساعدة"
+	@echo ""
+	@echo "أمثلة الاستخدام:"
+	@echo "  $(YELLOW)make && ./bin/wisam examples/hello.wsm$(NC)"
+	@echo "  $(YELLOW)make debug && gdb ./bin/wisam$(NC)"
+	@echo "  $(YELLOW)sudo make install$(NC)"
 
-.PHONY: all clean install uninstall test interactive release help
+# Print version
+version:
+	@echo "$(BLUE)لغة وسام$(NC) $(GREEN)v2.0$(NC) - الإصدار الذهبي"

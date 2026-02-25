@@ -9,7 +9,7 @@
 [![Language](https://img.shields.io/badge/اللغة-العربية-orange.svg)](#)
 
 <p align="center">
-  <img src="logo.png" alt="Wisam Logo" width="200"/>
+  <img src="logo.jpg" alt="Wisam Logo" width="200"/>
 </p>
 
 **برمجة عربية بامتياز 🇸🇦**

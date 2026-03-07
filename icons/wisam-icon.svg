@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- Background -->
+  <rect width="128" height="128" rx="16" fill="#4A90D9"/>
+  
+  <!-- Arabic letter Waw (و) stylized -->
+  <text x="64" y="88" 
+        font-family="Arial, sans-serif" 
+        font-size="72" 
+        font-weight="bold" 
+        fill="white" 
+        text-anchor="middle"
+        direction="rtl">و</text>
+  
+  <!-- Code brackets decoration -->
+  <path d="M 20 40 L 10 64 L 20 88" 
+        stroke="white" 
+        stroke-width="4" 
+        fill="none" 
+        stroke-linecap="round"/>
+  <path d="M 108 40 L 118 64 L 108 88" 
+        stroke="white" 
+        stroke-width="4" 
+        fill="none" 
+        stroke-linecap="round"/>
+</svg>

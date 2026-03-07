@@ -61,7 +61,7 @@ jobs:
             asset_name: wisam-windows.exe
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     
     - name: Build (Linux/Mac)
       if: matrix.target != 'windows'

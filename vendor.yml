@@ -1,0 +1,6 @@
+# Vendor files for Wisam - excluded from language statistics
+# ملفات الطرف الثالث - مستبعدة من إحصائيات اللغة
+
+- build/
+- docs/
+- .github/

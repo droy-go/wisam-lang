@@ -23,7 +23,7 @@ jobs:
           src/ stdlib/ 2>&1 | tee cppcheck-report.txt
     
     - name: Upload cppcheck report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: always()
       with:
         name: cppcheck-report
@@ -43,7 +43,7 @@ jobs:
         scan-build --status-bugs make clean all 2>&1 | tee scan-build-report.txt
     
     - name: Upload scan-build report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: always()
       with:
         name: scan-build-report
@@ -68,7 +68,7 @@ jobs:
           ./wisam examples/hello.wsm 2>&1 | tee valgrind-report.txt || true
     
     - name: Upload valgrind report
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: always()
       with:
         name: valgrind-report

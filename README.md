@@ -13,6 +13,12 @@
   <b>The First Complete Arabic Programming Language Written in C</b>
 </p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Wisam-4A90D9?style=for-the-badge&logoColor=white" alt="Wisam">
+  <img src="https://img.shields.io/badge/C-98.4%25-blue?style=for-the-badge" alt="C">
+  <img src="https://img.shields.io/badge/Makefile-1.6%25-green?style=for-the-badge" alt="Makefile">
+</p>
+
 ---
 
 ## 📖 نظرة عامة / Overview
@@ -338,6 +344,12 @@ wisam-lang/
 │   │   ├── code-quality.yml  # Code quality checks
 │   │   └── docs.yml     # Documentation deployment
 │   └── ISSUE_TEMPLATE/  # Issue templates
+├── grammars/
+│   └── wisam.tmLanguage.json  # Syntax highlighting grammar
+├── snippets/
+│   └── wisam.json       # VSCode snippets
+├── icons/
+│   └── wisam-icon.svg   # Language icon
 ├── src/
 │   ├── main.c           # نقطة الدخول
 │   ├── lexer.c          # المحلل اللغوي
@@ -385,6 +397,32 @@ make run-structs
 # الوضع التصحيحي
 make debug-hello
 ```
+
+---
+
+## 🎨 دعم المحررات / Editor Support
+
+### VSCode Extension / امتداد VSCode
+
+لتثبيت امتداد VSCode للغة وسام:
+
+```bash
+cd wisam-lang
+# Install the extension locally
+# أو انسخ المجلد إلى ~/.vscode/extensions/
+```
+
+### GitHub Linguist / لغة GitHub
+
+لإظهار لغة **وسام** في شريط اللغات على GitHub:
+
+1. تم تكوين `.gitattributes` للتعرف على ملفات `.wsm`
+2. تم إنشاء ملف `languages.yml` للتعريف باللغة
+3. اللون المختار: `#4A90D9` (أزرق وسام)
+
+للمساهمة في GitHub Linguist:
+- انتقل إلى: https://github.com/github/linguist
+- أضف لغة وسام باتباع إرشادات المساهمة
 
 ---
 

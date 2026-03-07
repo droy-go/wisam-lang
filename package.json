@@ -1,0 +1,61 @@
+{
+  "name": "wisam-language",
+  "displayName": "Wisam Programming Language",
+  "description": "Syntax highlighting for Wisam (وسام) - Arabic Programming Language",
+  "version": "1.0.0",
+  "publisher": "wisam-lang",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "wisam",
+    "وسام",
+    "arabic",
+    "programming language",
+    "لغة برمجة"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "wisam",
+        "aliases": [
+          "Wisam",
+          "وسام"
+        ],
+        "extensions": [
+          ".wsm"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/wisam-icon.svg",
+          "dark": "./icons/wisam-icon.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "wisam",
+        "scopeName": "source.wisam",
+        "path": "./grammars/wisam.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "wisam",
+        "path": "./snippets/wisam.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/droy-go/wisam.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/droy-go/wisam/issues"
+  },
+  "homepage": "https://github.com/droy-go/wisam#readme"
+}

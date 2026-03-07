@@ -1,0 +1,94 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Wisam",
+  "scopeName": "source.wisam",
+  "fileTypes": [".wsm"],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#functions"
+    },
+    {
+      "include": "#builtins"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.wisam",
+          "match": "#.*$"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.wisam",
+          "match": "\\b(ليكن|ثابت|هو|إذا|إذن|وإلا|انتهى|لكل|من|إلى|طالما|دالة|تأخذ|و|أعد|هيكل|استورد|أنشئ|عقل|منظومة|تعلّم|تعلم|اسأل|اسال|أضف|اضف|نصي|ذاكرة|طويلة|تعلّم_ذاتي|تعلم_ذاتي|استجب|طبقات|معدل_تعلم|درّب|درب|استخدم|أدر_التطبيق|ادر_التطبيق|احفظ|ميتا|صحيح|خطأ|خطا|فارغ)\\b"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.wisam",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.wisam",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.wisam",
+          "match": "\\b\\d+(\\.\\d+)?\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.wisam",
+          "match": "(\\+|-|\\*|/|%|=|==|!=|<|>|<=|>=|\\.)"
+        }
+      ]
+    },
+    "functions": {
+      "patterns": [
+        {
+          "name": "entity.name.function.wisam",
+          "match": "\\b(اكتب|اقرأ|اطبع|ادخل|الطول|النوع|للنص|للرقم|عشوائي|الوقت|التاريخ)\\b"
+        }
+      ]
+    },
+    "builtins": {
+      "patterns": [
+        {
+          "name": "support.class.wisam",
+          "match": "\\b(نصوص|زمن|مخزن|شبكة|وسائط|واجهات|ذكاء)\\b"
+        }
+      ]
+    }
+  }
+}

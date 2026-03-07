@@ -1,0 +1,98 @@
+{
+  "Variable Declaration": {
+    "prefix": "var",
+    "body": [
+      "ليكن ${1:name} هو ${2:value}"
+    ],
+    "description": "Declare a variable"
+  },
+  "Constant Declaration": {
+    "prefix": "const",
+    "body": [
+      "ثابت ${1:name} = ${2:value}"
+    ],
+    "description": "Declare a constant"
+  },
+  "Function": {
+    "prefix": "func",
+    "body": [
+      "دالة ${1:name} تأخذ ${2:param1} و ${3:param2}",
+      "    ${4:# code}",
+      "    أعد ${5:result}",
+      "انتهى"
+    ],
+    "description": "Define a function"
+  },
+  "If Statement": {
+    "prefix": "if",
+    "body": [
+      "إذا ${1:condition} إذن",
+      "    ${2:# code}",
+      "انتهى"
+    ],
+    "description": "If statement"
+  },
+  "If-Else Statement": {
+    "prefix": "ifelse",
+    "body": [
+      "إذا ${1:condition} إذن",
+      "    ${2:# code}",
+      "وإلا",
+      "    ${3:# code}",
+      "انتهى"
+    ],
+    "description": "If-else statement"
+  },
+  "For Loop": {
+    "prefix": "for",
+    "body": [
+      "لكل ${1:i} من ${2:1} إلى ${3:10}",
+      "    ${4:# code}",
+      "انتهى"
+    ],
+    "description": "For loop"
+  },
+  "While Loop": {
+    "prefix": "while",
+    "body": [
+      "طالما ${1:condition}",
+      "    ${2:# code}",
+      "انتهى"
+    ],
+    "description": "While loop"
+  },
+  "Struct": {
+    "prefix": "struct",
+    "body": [
+      "هيكل ${1:name}",
+      "    ${2:field1}",
+      "    ${3:field2}",
+      "انتهى"
+    ],
+    "description": "Define a struct"
+  },
+  "Print": {
+    "prefix": "print",
+    "body": [
+      "اكتب ${1:message}"
+    ],
+    "description": "Print a message"
+  },
+  "AI Mind": {
+    "prefix": "aimind",
+    "body": [
+      "أنشئ عقل باسم ${1:assistant}",
+      "${1:assistant}.تعلّم",
+      "    \"${2:pattern}\" = \"${3:response}\"",
+      "انتهى"
+    ],
+    "description": "Create an AI mind"
+  },
+  "Import Module": {
+    "prefix": "import",
+    "body": [
+      "استورد ${1:module}"
+    ],
+    "description": "Import a module"
+  }
+}

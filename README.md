@@ -4,6 +4,8 @@
   <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" alt="Version">
   <img src="https://img.shields.io/badge/language-C-orange.svg" alt="Language">
   <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License">
+  <img src="https://github.com/droy-go/wisam/workflows/Build%20Wisam/badge.svg" alt="Build Status">
+  <img src="https://github.com/droy-go/wisam/workflows/Code%20Quality/badge.svg" alt="Code Quality">
 </p>
 
 <p align="center">
@@ -329,6 +331,13 @@ wisam -a program.wsm  # عرض شجرة التحليل / Show AST
 
 ```
 wisam-lang/
+├── .github/
+│   ├── workflows/       # GitHub Actions CI/CD
+│   │   ├── build.yml    # Build workflow
+│   │   ├── release.yml  # Release workflow
+│   │   ├── code-quality.yml  # Code quality checks
+│   │   └── docs.yml     # Documentation deployment
+│   └── ISSUE_TEMPLATE/  # Issue templates
 ├── src/
 │   ├── main.c           # نقطة الدخول
 │   ├── lexer.c          # المحلل اللغوي
@@ -353,7 +362,10 @@ wisam-lang/
 │   ├── loops.wsm        # مثال حلقات
 │   └── structs.wsm      # مثال هياكل
 ├── Makefile
-└── README.md
+├── README.md
+├── LICENSE
+├── CONTRIBUTING.md
+└── SECURITY.md
 ```
 
 ---

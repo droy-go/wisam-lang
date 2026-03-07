@@ -1,0 +1,18 @@
+# Wisam Programming Language Definition for GitHub Linguist
+# تعريف لغة برمجة وسام لـ GitHub Linguist
+
+Wisam:
+  type: programming
+  color: "#4A90D9"
+  extensions:
+    - ".wsm"
+  tm_scope: source.wisam
+  ace_mode: text
+  language_id: 999999001
+  interpreters:
+    - wisam
+  aliases:
+    - wisam-lang
+    - وسام
+  wrap: true
+  searchable: true

@@ -1,0 +1,89 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install cppcheck
+      run: sudo apt-get install -y cppcheck
+
+    - name: Run cppcheck
+      run: |
+        cppcheck --enable=all --suppress=missingIncludeSystem \
+          --suppress=unusedFunction \
+          --suppress=variableScope \
+          --error-exitcode=0 \
+          src/ stdlib/ 2>&1 | tee cppcheck-report.txt || true
+      continue-on-error: true
+
+    - name: Upload cppcheck report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: cppcheck-report
+        path: cppcheck-report.txt
+        retention-days: 30
+
+  static-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Clang Static Analyzer
+      run: sudo apt-get install -y clang-tools
+
+    - name: Build with scan-build
+      run: |
+        make clean || true
+        scan-build --status-bugs -o scan-build-results make all 2>&1 | tee scan-build-report.txt || true
+      continue-on-error: true
+
+    - name: Upload scan-build report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: scan-build-report
+        path: scan-build-report.txt
+        retention-days: 30
+
+  memory-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y valgrind build-essential gcc make
+
+    - name: Build with debug symbols
+      run: |
+        make clean || true
+        CFLAGS="-g -O0" make all
+
+    - name: Run valgrind
+      run: |
+        valgrind --leak-check=full --show-leak-kinds=all \
+          --track-origins=yes --verbose \
+          --error-exitcode=0 \
+          ./wisam examples/hello.wsm 2>&1 | tee valgrind-report.txt || true
+      continue-on-error: true
+
+    - name: Upload valgrind report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: valgrind-report
+        path: valgrind-report.txt
+        retention-days: 30

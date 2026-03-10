@@ -1,0 +1,255 @@
+/* Wisam Editor Custom Styles */
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Editor specific styles */
+.monaco-editor {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace !important;
+}
+
+/* Arabic font support */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Noto Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Editor tabs */
+.editor-tab {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.editor-tab::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: hsl(var(--primary));
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.editor-tab.active::after {
+  transform: scaleX(1);
+}
+
+/* Terminal styles */
+.terminal-output {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  line-height: 1.6;
+}
+
+/* Resizable panel styles */
+.resizable-panel {
+  transition: flex 0.1s ease;
+}
+
+/* Button hover effects */
+button {
+  transition: all 0.15s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Dark mode specific */
+.dark .monaco-editor {
+  background-color: #0D1117 !important;
+}
+
+/* Light mode specific */
+:not(.dark) .monaco-editor {
+  background-color: #FFFFFF !important;
+}
+
+/* File explorer item hover */
+.file-item {
+  transition: background-color 0.15s ease;
+}
+
+.file-item:hover {
+  background-color: hsl(var(--accent));
+}
+
+/* Status bar */
+.status-bar {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Loading animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  animation: spin 1s linear infinite;
+}
+
+/* Code completion popup */
+.suggest-widget {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Tooltip */
+.monaco-editor .monaco-hover {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Line numbers */
+.monaco-editor .line-numbers {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Selection highlight */
+.monaco-editor .selected-text {
+  border-radius: 2px;
+}
+
+/* Cursor */
+.monaco-editor .cursor {
+  transition: opacity 0.1s ease;
+}
+
+/* Find widget */
+.monaco-editor .find-widget {
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Context menu */
+.context-menu {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Scrollbar in editor */
+.monaco-editor .scrollbar {
+  transition: opacity 0.2s ease;
+}
+
+.monaco-editor .scrollbar:hover {
+  opacity: 1;
+}
+
+/* Minimap */
+.monaco-editor .minimap {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.monaco-editor .minimap:hover {
+  opacity: 1;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  font-size: 12px;
+}
+
+/* Panel headers */
+.panel-header {
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+/* Toast notifications */
+[data-sonner-toast] {
+  font-family: inherit;
+}
+
+/* Dialog overlay */
+[data-state="open"] > [data-radix-dialog-overlay] {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Dropdown menu */
+[data-radix-dropdown-menu-content] {
+  animation: fadeIn 0.15s ease-out;
+}
+
+/* Tabs */
+[data-radix-tabs-list] {
+  gap: 2px;
+}
+
+/* Input focus */
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.dark .glass {
+  background: rgba(0, 0, 0, 0.2);
+}

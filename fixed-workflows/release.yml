@@ -1,0 +1,112 @@
+name: Release Wisam
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      release_id: ${{ steps.create_release.outputs.id }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Wisam ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          body: |
+            ## 🚀 إصدار جديد من لغة وسام
+            ## New Release of Wisam Programming Language
+
+            ### التنزيلات / Downloads
+            - Linux: `wisam-linux`
+            - macOS: `wisam-macos`
+            - Windows: `wisam-windows.exe`
+
+            ### التثبيت / Installation
+            ```bash
+            # Linux/Mac
+            chmod +x wisam
+            ./wisam --version
+
+            # Windows
+            wisam.exe --version
+            ```
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-and-upload:
+    needs: create-release
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: linux
+            asset_name: wisam-linux
+          - os: macos-latest
+            target: macos
+            asset_name: wisam-macos
+          - os: windows-latest
+            target: windows
+            asset_name: wisam-windows.exe
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build (Linux/Mac)
+        if: matrix.target != 'windows'
+        run: |
+          make clean || true
+          make all
+          ls -la wisam
+
+      - name: Setup MinGW (Windows)
+        if: matrix.target == 'windows'
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-make
+
+      - name: Build (Windows)
+        if: matrix.target == 'windows'
+        shell: msys2 {0}
+        run: |
+          mingw32-make clean || true
+          mingw32-make all
+          ls -la wisam.exe
+
+      - name: Upload Release Asset (Linux/Mac)
+        if: matrix.target != 'windows'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: wisam
+          tag_name: ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Release Asset (Windows)
+        if: matrix.target == 'windows'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: wisam.exe
+          tag_name: ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
